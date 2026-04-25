@@ -1,0 +1,71 @@
+.container {
+  padding: 30rpx;
+  background: #F5F5F5;
+  min-height: 100vh;
+}
+.word-header {
+  margin-bottom: 30rpx;
+}
+.word-title {
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #333;
+  display: block;
+  margin-bottom: 8rpx;
+}
+.word-desc {
+  font-size: 26rpx;
+  color: #666;
+}
+.word-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+.word-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+}
+.word-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 20rpx;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24rpx;
+  font-size: 36rpx;
+}
+.word-icon.book {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+.word-icon.star {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+}
+.word-icon.fire {
+  background: linear-gradient(135deg, #ff9a9e, #fecfef);
+}
+.word-info {
+  flex: 1;
+}
+.word-name {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 6rpx;
+}
+.word-desc {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 6rpx;
+}
+.word-count {
+  font-size: 22rpx;
+  color: #999;
+}
+.word-arrow {
+  font-size: 36rpx;
+  color: #ccc;
+}
