@@ -1,0 +1,86 @@
+<view class="container">
+  <!-- 头部区域 -->
+  <view class="mine-header">
+    <view class="add-tip">👆 点击右上角添加到我的小程序，学习更方便</view>
+    
+    <!-- 未登录状态 -->
+    <view class="login-box" wx:if="{{!isLogin}}" bindtap="onLogin">
+      <view class="login-avatar">
+        <image class="avatar-img" src="https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0" mode="aspectFill"></image>
+      </view>
+      <view class="login-info">
+        <view class="login-text">点击登录</view>
+        <view class="login-desc">登录后享受更多功能</view>
+      </view>
+      <view class="login-arrow">›</view>
+    </view>
+    
+    <!-- 已登录状态 -->
+    <view class="user-info" wx:else bindtap="goEditProfile">
+      <view class="user-avatar">
+        <image class="avatar-img" src="{{userInfo.avatar || 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'}}" mode="aspectFill"></image>
+        <view class="vip-badge" wx:if="{{isVip}}">VIP</view>
+      </view>
+      <view class="user-detail">
+        <view class="user-name">{{userInfo.nickname || '用户'}}</view>
+        <view class="user-id" wx:if="{{userInfo.id}}">ID：{{userInfo.id}}</view>
+        <view class="user-id" wx:elif="{{userInfo.openid}}">ID：{{userInfo.openid}}</view>
+      </view>
+      <view class="edit-tip">编辑 ›</view>
+    </view>
+
+    <!-- 学习数据 -->
+    <view class="data-box">
+      <view class="data-item">
+        <view class="data-num">{{stats.todayMinutes || 0}}</view>
+        <view class="data-text">今日分钟</view>
+      </view>
+      <view class="data-divider"></view>
+      <view class="data-item">
+        <view class="data-num">{{stats.todayWords || 0}}</view>
+        <view class="data-text">今日单词</view>
+      </view>
+      <view class="data-divider"></view>
+      <view class="data-item">
+        <view class="data-num">{{stats.totalMinutes || 0}}</view>
+        <view class="data-text">累计分钟</view>
+      </view>
+    </view>
+
+    <!-- 会员卡片 -->
+    <view class="member-card" bindtap="goMember">
+      <view class="member-icon">⭐</view>
+      <view class="member-left">
+        <view class="member-text">{{isVip ? '会员中心' : '开通会员'}}</view>
+        <view class="member-desc">{{isVip ? '会员到期：' + vipExpireTime : '成为会员，使用全部功能'}}</view>
+      </view>
+      <view class="member-btn">{{isVip ? '查看' : '去开通'}}</view>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-list">
+    <view class="menu-title">功能服务</view>
+    
+    <view class="menu-item" wx:for="{{menuList}}" wx:key="id" bindtap="onMenuTap" data-url="{{item.url}}">
+      <view class="menu-icon {{item.iconClass}}">{{item.icon}}</view>
+      <view class="menu-content">
+        <text class="menu-text">{{item.name}}</text>
+      </view>
+      <view class="menu-arrow">›</view>
+    </view>
+    
+    <!-- 退出登录 -->
+    <view class="menu-item logout-item" wx:if="{{isLogin}}" bindtap="onLogout">
+      <view class="menu-icon logout-icon">🚪</view>
+      <view class="menu-content">
+        <text class="menu-text logout-text">退出登录</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部版权 -->
+  <view class="footer">
+    <text>小语笔记 v1.0.0</text>
+  </view>
+</view>
