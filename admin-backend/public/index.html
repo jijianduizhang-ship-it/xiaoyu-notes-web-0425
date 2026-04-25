@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小语笔记 - 管理后台</title>
+  <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .login-card { background: white; border-radius: 16px; padding: 40px; width: 400px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+    .login-card h1 { color: #333; font-size: 24px; margin-bottom: 30px; text-align: center; }
+    .btn-login { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; padding: 12px; font-size: 16px; }
+    .btn-login:hover { opacity: 0.9; }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <h1>🔔 小语笔记管理后台</h1>
+    <form id="loginForm">
+      <div class="mb-3">
+        <label class="form-label">用户名</label>
+        <input type="text" class="form-control" id="username" placeholder="请输入用户名" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">密码</label>
+        <input type="password" class="form-control" id="password" placeholder="请输入密码" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-login w-100">登 录</button>
+      <div id="errorMsg" class="alert alert-danger mt-3" style="display:none;"></div>
+    </form>
+  </div>
+
+  <script>
+    const API_BASE = '/api/admin';
+    
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('errorMsg');
+      
+      try {
+        const res = await fetch(API_BASE + '/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+        
+        if (data.code === 200) {
+          localStorage.setItem('token', data.data.token);
+          localStorage.setItem('username', data.data.username);
+          window.location.href = 'dashboard.html';
+        } else {
+          errorMsg.textContent = data.msg;
+          errorMsg.style.display = 'block';
+        }
+      } catch (err) {
+        errorMsg.textContent = '网络错误，请稍后重试';
+        errorMsg.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
